@@ -11,12 +11,10 @@ function setup() {
 
 function draw() {
   
-  // No trails!
   background(0);
   x += random(-5, 5);
   y += random(-5, 5);
 	
-  // trails
   if (mouseIsPressed) {
     FrogCanvas.fill(255, 150);
     FrogCanvas.noStroke();
@@ -29,5 +27,6 @@ function draw() {
   rectMode(CENTER);
   rect(x, y, 20, 20);
 
+  //frogggg.jpg
   
 }
