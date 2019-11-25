@@ -6,10 +6,8 @@ html, body {
 canvas {
   display: block;
 }
-
 #content {
 }
-
 #text {
   display: block;
   margin-top: 440px;
@@ -21,7 +19,6 @@ canvas {
   /* text-align: center; */
   background-color: #dedede;
 }
-
 #footer {
     position: absolute;
     bottom: 10px;
