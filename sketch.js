@@ -16,7 +16,7 @@ function draw() {
   y += random(-5, 5);
 	
   if (mouseIsPressed) {
-    FrogCanvas.fill(255, 150);
+    FrogCanvas.fill(47,157,39);
     FrogCanvas.noStroke();
     FrogCanvas.ellipse(mouseX, mouseY, 60, 60);
   }
