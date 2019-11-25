@@ -1,11 +1,11 @@
 let x = 200;
 let y = 200;
-let extraCanvas;
+let FrogCanvas;
 
 function setup() {
   createCanvas(400, 400);
-  extraCanvas = createGraphics(400, 400);
-  extraCanvas.clear();
+  FrogCanvas = createGraphics(400, 400);
+  FrogCanvas.clear();
   background(0);
 }
 
@@ -18,12 +18,12 @@ function draw() {
 	
   // trails
   if (mouseIsPressed) {
-    extraCanvas.fill(255, 150);
-    extraCanvas.noStroke();
-    extraCanvas.ellipse(mouseX, mouseY, 60, 60);
+    FrogCanvas.fill(255, 150);
+    FrogCanvas.noStroke();
+    FrogCanvas.ellipse(mouseX, mouseY, 60, 60);
   }
   
-  image(extraCanvas, 0, 0);
+  image(FrogCanvas, 0, 0);
     fill(255, 0, 0);
   stroke(255);
   rectMode(CENTER);
