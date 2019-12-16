@@ -1,82 +1,79 @@
-let defaultColor = [255, 0, 0];
-let colors = [
-  [255, 255, 0],
-  [0, 185, 63],
-  [0, 104, 255],
-  [122, 0, 229]
-];
+var cities = [];
+var totalCities = 12;
 
-let sandpiles;
-let nextpiles;
+var popSize = 500;
+var population = [];
+var fitness = [];
+
+var recordDistance = Infinity;
+var bestEver;
+var currentBest;
+
+var statusP;
 
 function setup() {
-  createCanvas(600, 600);
-  pixelDensity(1);
-
-  sandpiles = new Array(width).fill().map(i => new Array(height).fill(0));
-  nextpiles = new Array(width).fill().map(i => new Array(height).fill(0));
-
-  sandpiles[width / 2][height / 2] = 1000000000;
-
-  background(defaultColor[0], defaultColor[1], defaultColor[2]);
-}
-
-function topple() {
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      nextpiles[x][y] = sandpiles[x][y];
-    }
+  createCanvas(800, 800);
+  var order = [];
+  for (var i = 0; i < totalCities; i++) {
+    var v = createVector(random(width), random(height / 2));
+    cities[i] = v;
+    order[i] = i;
   }
 
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      let num = sandpiles[x][y];
-      if (num >= 4) {
-        nextpiles[x][y] -= 4;
-        if (x + 1 < width) nextpiles[x + 1][y]++;
-        if (x - 1 >= 0) nextpiles[x - 1][y]++;
-        if (y + 1 < height) nextpiles[x][y + 1]++;
-        if (y - 1 >= 0) nextpiles[x][y - 1]++;
-      }
-    }
+  for (var i = 0; i < popSize; i++) {
+    population[i] = shuffle(order);
   }
-
-  let tmp = sandpiles;
-  sandpiles = nextpiles;
-  nextpiles = tmp;
-}
-
-function render() {
-  loadPixels();
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      let num = sandpiles[x][y];
-      let col = defaultColor;
-      if (num == 0) {
-        col = colors[0];
-      } else if (num == 1) {
-        col = colors[1];
-      } else if (num == 2) {
-        col = colors[2];
-      } else if (num == 3) {
-        col = colors[3];
-      }
-
-      let pix = (x + y * width) * 4;
-      pixels[pix] = col[0];
-      pixels[pix + 1] = col[1];
-      pixels[pix + 2] = col[2];
-      // pixels[pix + 3] = 255;
-    }
-  }
-
-  updatePixels();
+  statusP = createP('').style('font-size', '32pt');
 }
 
 function draw() {
-  render();
+  background(0);
 
-  for (let i = 0; i < 50; i++) {
-    topple();
+  // GA
+  calculateFitness();
+  normalizeFitness();
+  nextGeneration();
+
+  stroke(255);
+  strokeWeight(4);
+  noFill();
+  beginShape();
+  for (var i = 0; i < bestEver.length; i++) {
+    var n = bestEver[i];
+    vertex(cities[n].x, cities[n].y);
+    ellipse(cities[n].x, cities[n].y, 16, 16);
   }
+  endShape();
+
+  translate(0, height / 2);
+  stroke(255);
+  strokeWeight(4);
+  noFill();
+  beginShape();
+  for (var i = 0; i < currentBest.length; i++) {
+    var n = currentBest[i];
+    vertex(cities[n].x, cities[n].y);
+    ellipse(cities[n].x, cities[n].y, 16, 16);
+  }
+  endShape();
+}
+
+
+function swap(a, i, j) {
+  var temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
+function calcDistance(points, order) {
+  var sum = 0;
+  for (var i = 0; i < order.length - 1; i++) {
+    var cityAIndex = order[i];
+    var cityA = points[cityAIndex];
+    var cityBIndex = order[i + 1];
+    var cityB = points[cityBIndex];
+    var d = dist(cityA.x, cityA.y, cityB.x, cityB.y);
+    sum += d;
+  }
+  return sum;
 }
