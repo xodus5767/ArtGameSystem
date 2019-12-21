@@ -27,6 +27,7 @@ function setup() {
   
   initbombpos();
 }
+
 function draw() {
   background(51);
   createCanvas(500,500);
