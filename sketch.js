@@ -22,6 +22,7 @@ function setup() {
   }
   
   posX = zapperwidth + 0.5*ball_diameter - 2;
+  posY = zapperwidth + 0.5*ball_diameter - 0;
   xpoint = 0.5 * width;
   ypoint = height - 0.5*ball_diameter + 1;
   
@@ -29,8 +30,7 @@ function setup() {
 }
 
 function draw() {
-  background(51);
-  createCanvas(500,500);
+  background(50);
   fill(239, 58, 38);
   rect(0, 0, zapperwidth, height);
   scoreUpdate();
