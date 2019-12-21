@@ -1,9 +1,9 @@
-var ball_diameter = 20;
+var ball_diameter = 15;
 var bomb_diameter = 10;
 var xpoint;
 var ypoint;
 var zapperwidth = 6;
-var numofbombs = 5;
+var numofbombs = 8;
 var bombposX =[];
 var bombposY = [];
 var bombacceleration = [];
@@ -14,17 +14,17 @@ var score = 0;
 var posX;
 
 function setup() {
-  var temp00 =0, temp01 = -20;
+  var temp00 =0, temp01 = -10;
   while(temp01 < height){
     temp00 += 0.02;
     temp01 += temp00;
     timeperiod++;
   }
   
-  posX = zapperwidth + 0.5*ball_diameter - 2;
+  posX = zapperwidth + 0.5*ball_diameter - 0;
   posY = zapperwidth + 0.5*ball_diameter - 0;
-  xpoint = 0.5 * width;
-  ypoint = height - 0.5*ball_diameter + 1;
+  xpoint = 3 * width;
+  ypoint = height +10*ball_diameter + 1;
   
   initbombpos();
 }
@@ -40,7 +40,7 @@ function draw() {
     ellipse(bombposX[i], bombposY[i], bomb_diameter, bomb_diameter);
   }
   updatebombpos();
-  fill(0, 255, 0)
+  fill(200, 100, 40)
     ellipse(xpoint, ypoint, ball_diameter, ball_diameter);
   xpoint -=1;
   
