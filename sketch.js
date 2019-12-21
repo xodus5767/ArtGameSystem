@@ -3,7 +3,7 @@ var bomb_diameter = 10;
 var xpoint;
 var ypoint;
 var zapperwidth = 6;
-var numofbombs = 20;
+var numofbombs = 5;
 var bombposX =[];
 var bombposY = [];
 var bombacceleration = [];
@@ -30,6 +30,7 @@ function setup() {
 }
 
 function draw() {
+  createCanvas(500,300);
   background(50);
   fill(239, 58, 38);
   rect(0, 0, zapperwidth, height);
